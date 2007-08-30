@@ -64,7 +64,7 @@ Exec=rlplot
 Icon=rlplot
 Terminal=false
 Type=Application
-Categories=X-MandrivaLinux-MoreApplications-Sciences-Other;Science
+Categories=X-MandrivaLinux-MoreApplications-Sciences-Other;Science;
 EOF
 
 #icons
