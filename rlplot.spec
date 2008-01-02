@@ -13,6 +13,7 @@ Source3: 	%{name}16.png
 URL: 		http://rlplot.sourceforge.net
 License: 	GPL
 Group: 		Sciences/Other
+BuildRoot:      %{_tmppath}/%{name}-buildroot
 BuildRequires: 	qt3-devel
 Obsoletes:	RLPlot
 Provides:	RLPlot
