@@ -41,20 +41,6 @@ install -m 755 rlplot $RPM_BUILD_ROOT/usr/bin
 install -m 755 exprlp $RPM_BUILD_ROOT/usr/bin
 
 #menu
-mkdir -p $RPM_BUILD_ROOT%{_menudir}
-(cd $RPM_BUILD_ROOT
-cat > ./usr/lib/menu/%{name} <<EOF
-?package(%{name}):\
-needs="x11"\
-section="More Applications/Sciences/Other"\
-title="RLPlot"\
-longtitle="Data Plotting and Graphing"\
-command="%{name}"\
-icon="%{name}.png"\
-xdg="true"
-EOF
-)
-
 mkdir -p %{buildroot}%{_datadir}/applications
 cat > %{buildroot}%{_datadir}/applications/mandriva-%{name}.desktop << EOF
 [Desktop Entry]
@@ -91,7 +77,6 @@ rm -rf $RPM_BUILD_ROOT
 %{_liconsdir}/%name.png
 %{_iconsdir}/%name.png
 %{_miconsdir}/%name.png
-%{_menudir}/*
 %{_datadir}/applications/*
 %defattr(644,root,root,0755)
 %doc README gpl.txt
