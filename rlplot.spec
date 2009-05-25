@@ -1,20 +1,20 @@
 %define name 	rlplot
-%define version 1.3
-%define release %mkrel 4
+%define version 1.5
+%define release %mkrel 1
 
 Summary: 	Data Plotting and Graphing
 Name: 		%{name}
 Version: 	%{version}
 Release: 	%{release}
-Source0: 	http://prdownloads.sourceforge.net/%{name}/%{name}_%version.tar.bz2
+Source0: 	http://prdownloads.sourceforge.net/%{name}/%{name}_%version.tar.gz
 Source1: 	%{name}48.png
 Source2: 	%{name}32.png
 Source3: 	%{name}16.png
 URL: 		http://rlplot.sourceforge.net
-License: 	GPL
+License: 	GPLv2+
 Group: 		Sciences/Other
 BuildRoot:      %{_tmppath}/%{name}-buildroot
-BuildRequires: 	qt3-devel
+BuildRequires: 	qt4-devel
 Obsoletes:	RLPlot
 Provides:	RLPlot
 
@@ -27,18 +27,23 @@ mouse button) to modify its properties.
 
 %prep
 %setup -q -n %{name}
+
 perl -pi -e 's/\-O2/\$\(RPM_OPT_FLAGS\)/g' Makefile
-perl -pi -e 's/QTDIR\)\/lib/QTDIR\)\/%{_lib}/g' Makefile
-perl -pi -e 's/X11R6\/lib/X11R6\/%{_lib}/g' Makefile
+perl -pi -e 's/bin\/moc-qt4/bin\/moc/g' Makefile
+perl -pi -e 's/usr\/include\/Qt/usr\/lib\/qt4\/include \-I\/usr\/lib\/qt4\/include\/Qt/g' Makefile
+perl -pi -e 's/X11R6\/lib/%{_lib}/g' Makefile
+
+# fix overlinking
+perl -pi -e 's/\-lX11//g' Makefile
 
 %build
 %make
 
 %install
-rm -fr $RPM_BUILD_ROOT
-mkdir -p $RPM_BUILD_ROOT/%_bindir
-install -m 755 rlplot $RPM_BUILD_ROOT/usr/bin
-install -m 755 exprlp $RPM_BUILD_ROOT/usr/bin
+rm -fr %{buildroot}
+mkdir -p %{buildroot}/%{_bindir}
+install -m 755 rlplot %{buildroot}%{_bindir}
+install -m 755 exprlp %{buildroot}%{_bindir}
 
 #menu
 mkdir -p %{buildroot}%{_datadir}/applications
@@ -54,15 +59,15 @@ Categories=X-MandrivaLinux-MoreApplications-Sciences-Other;Science;
 EOF
 
 #icons
-mkdir -p $RPM_BUILD_ROOT/%_liconsdir
-cat %SOURCE1 > $RPM_BUILD_ROOT/%_liconsdir/%name.png
-mkdir -p $RPM_BUILD_ROOT/%_iconsdir
-cat %SOURCE2 > $RPM_BUILD_ROOT/%_iconsdir/%name.png
-mkdir -p $RPM_BUILD_ROOT/%_miconsdir
-cat %SOURCE3 > $RPM_BUILD_ROOT/%_miconsdir/%name.png
+mkdir -p %{buildroot}%{_liconsdir}
+cat %{SOURCE1} > %{buildroot}%{_liconsdir}/%{name}.png
+mkdir -p %{buildroot}%{_iconsdir}
+cat %{SOURCE2} > %{buildroot}%{_iconsdir}/%{name}.png
+mkdir -p %{buildroot}%{_miconsdir}
+cat %{SOURCE3} > %{buildroot}%{_miconsdir}/%{name}.png
 
 %clean
-rm -rf $RPM_BUILD_ROOT
+rm -rf %{buildroot}
 
 %if %mdkversion < 200900
 %post 
@@ -78,9 +83,9 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(-,root,root,0755)
 %{_bindir}/%{name}
 %{_bindir}/exprlp
-%{_liconsdir}/%name.png
-%{_iconsdir}/%name.png
-%{_miconsdir}/%name.png
+%{_liconsdir}/%{name}.png
+%{_iconsdir}/%{name}.png
+%{_miconsdir}/%{name}.png
 %{_datadir}/applications/*
 %defattr(644,root,root,0755)
 %doc README gpl.txt
