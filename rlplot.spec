@@ -10,7 +10,7 @@ Source0: 	http://prdownloads.sourceforge.net/%{name}/%{name}_%version.tar.gz
 Source1: 	%{name}48.png
 Source2: 	%{name}32.png
 Source3: 	%{name}16.png
-URL: 		http://rlplot.sourceforge.net
+URL: 		https://rlplot.sourceforge.net
 License: 	GPLv2+
 Group: 		Sciences/Other
 BuildRoot:      %{_tmppath}/%{name}-buildroot
