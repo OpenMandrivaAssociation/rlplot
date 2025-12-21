@@ -14,6 +14,7 @@ URL: 		https://rlplot.sourceforge.net
 License: 	GPLv2+
 Group: 		Sciences/Other
 BuildRoot:      %{_tmppath}/%{name}-buildroot
+BuildRequires:	make
 BuildRequires: 	qt4-devel
 Obsoletes:	RLPlot
 Provides:	RLPlot
