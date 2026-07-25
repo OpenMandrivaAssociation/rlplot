@@ -1,6 +1,6 @@
 %define name 	rlplot
 %define version 1.5
-%define release %mkrel 1
+%define release 2
 
 Summary: 	Data Plotting and Graphing
 Name: 		%{name}
